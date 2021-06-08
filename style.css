@@ -1,0 +1,10 @@
+fieldset {
+    display: flex;
+}
+fieldset label {
+    margin-right: 20px;
+}
+.attention {
+    background-color: lightpink;
+    border-color: red;
+}
