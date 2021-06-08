@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <p class="text">Исходный текст<br>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo aren't
+        ligula eget dolor. Aenean massa.
+        Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus: 'Donec quam felis,
+        ultricies nec, pellentesque eu, pretium quis,
+        sem. Nulla consequat massa quis enim.' Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In
+        enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
+        Nullam dictum aren't felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper
+        nisi. Aenean vulputate eleifend tellus.
+        Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim: 'Aliquam lorem ante, dapibus in, viverra
+        don't quis, feugiat a, tellus.
+        Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel
+        augue.' </p>
+    <p class="textupdate"></p>
+
+    <div class="form_own"></div>
+
+    <script>
+        'use strict';
+        // 1,2 задания
+        let text = document.querySelector('.text').innerText;
+        const firstRegExp = /\W'/g;
+
+        const new_paragragh = text.replace(firstRegExp, '"');
+        let textupdate = document.querySelector('.textupdate').innerHTML = `Текст с заменой кавычек<br>${new_paragragh}`;
+
+        // 3 задание
+
+        let form_own = document.querySelector('.form_own');
+        form_own.insertAdjacentHTML('afterbegin', `
+        <fieldset>
+        <legend>Контактная информация</legend>
+        <label>Имя <input  class="name" type="text" value="" ></label>
+        <label>Телефон <input class="tel" type="text" value=""></label>
+        <label>E-mail <input class="e-mail" type="email" value=""></label>
+        <label><textarea class="text" name="text" value="">Текст</textarea></label>
+        <button class="submit">Отправить </button>
+        </fieldset>
+        `);
+        let classname = [
+            {
+                name: "Имя",
+                classname: '.name',
+                regexp: /^(([a-zа-яё])+)$/i
+            },
+            {
+                name: "Телефон",
+                classname: '.tel',
+                regexp: /^\+7\([0-9]{3}\)[0-9]{3}\-[0-9]{4}$/
+            },
+            {
+                name: "E-mail",
+                classname: '.e-mail',
+                regexp: /^([0-9a-zA-Z]([-\.\w]*[0-9a-zA-Z])*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,}))$/
+            },
+
+        ];
+
+        function testReg(classname) {
+            let button_submit = document.querySelector('.submit').addEventListener('click', () => {
+                for (let i = 0; i <= classname.length - 1; i++) {
+                    if (classname[i].regexp.test(document.querySelector(classname[i].classname).value) != true) {
+                        document.querySelector(classname[i].classname).classList.add('attention');
+                        alert(`Ошибка в поле ${classname[i].name}`);
+                    } else {
+                        document.querySelector(classname[i].classname).classList.remove('attention')
+                    }
+                }
+            });
+        }
+
+        testReg(classname);
+
+    </script>
+</body>
+
+</html>
